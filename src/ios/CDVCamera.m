@@ -192,7 +192,13 @@ static NSString* toBase64(NSData* data) {
     cameraPicker.callbackId = callbackId;
     // we need to capture this state for memory warnings that dealloc this object
     cameraPicker.webView = self.webView;
-
+	
+    // fix for IOS 13 video issue.
+	if (@available(iOS 11.0, *)) {
+	imagePicker.videoExportPreset = AVAssetExportPresetPassthrough;
+	}
+   // fix for IOS 13 video issue.
+	
     // Perform UI operations on the main thread
     dispatch_async(dispatch_get_main_queue(), ^{
         // If a popover is already open, close it; we only want one at a time.
